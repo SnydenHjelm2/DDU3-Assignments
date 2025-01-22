@@ -1,0 +1,29 @@
+.control {
+  margin: 10px;
+  text-align: center;
+
+  button {
+    padding: 5px 10px;
+    margin: 0 5px;
+  }
+}
+
+.lineup {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.match {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.player {
+  flex-basis: 20%;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px;
+}
+
