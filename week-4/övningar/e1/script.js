@@ -7,6 +7,10 @@ const db = [
       name: {first: "Jimi", last: "Hendrix"},
       address: { postcode: 21742, street: "Västerlånggatan", number: 7, city: "Malmö"}
     },
+    {
+      name: {first: "Bo-Inge", last: "Nejlikeblad"},
+      address: {postcode: 21743, street: "Pilåkersvägen", number: 3, city: "Malmö"}
+    },
   ];
 
   class Person {
@@ -24,8 +28,17 @@ const db = [
     }
   }
 
-  let person1 = new Person(db[0]);
-  let person2 = new Person(db[1]);
+  // let person1 = new Person(db[0]);
+  // let person2 = new Person(db[1]);
+  // let person3 = new Person(db[2]);
 
-  console.log(`${person1.writeName()} (${person1.writeAdress()})`);
-  console.log(`${person2.writeName()} (${person2.writeAdress()})`);
+  // console.log(`${person1.writeName()} (${person1.writeAdress()})`);
+  // console.log(`${person2.writeName()} (${person2.writeAdress()})`);
+  // console.log(`${person3.writeName()} (${person3.writeAdress()})`);
+
+  for (let person of db) {
+    let newPerson = new Person(person);
+    console.log(`${newPerson.writeName()} (${newPerson.writeAdress()})`);
+  }
+  
+  
