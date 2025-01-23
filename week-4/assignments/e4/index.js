@@ -105,12 +105,6 @@ class Player {
     }
 }
 
-let player1 = new Player(db[0]);
-let player2 = new Player(db[1]);
-let player3 = new Player(db[2]);
-let player4 = new Player(db[3]);
-
-document.body.appendChild(player1.html);
-document.body.appendChild(player2.html);
-document.body.appendChild(player3.html);
-document.body.appendChild(player4.html);
+for (let player of db) {
+    document.body.appendChild(new Player(player).html);
+}

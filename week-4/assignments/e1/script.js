@@ -11,12 +11,23 @@ const db = [
       name: {first: "Bo-Inge", last: "Nejlikeblad"},
       address: {postcode: 21743, street: "Pilåkersvägen", number: 3, city: "Malmö"}
     },
+    {
+      name: {first: "Lars-Åke", last: "Jansson"},
+      address: {postcode: 21611, street: "Gustavsgatan", number: 32, city: "Malmö"}
+    },
   ];
 
   class Person {
+    static persons = [];
+    static writePersonsToConsole(person) {
+      console.log(`${person.writeName()} (${person.writeAdress()})`);
+    }
+
     constructor(data) {
         this.name = data.name
         this.adress = data.address
+
+        Person.persons.push(this);
     }
 
     writeName() {
@@ -38,7 +49,7 @@ const db = [
 
   for (let person of db) {
     let newPerson = new Person(person);
-    console.log(`${newPerson.writeName()} (${newPerson.writeAdress()})`);
+    Person.writePersonsToConsole(newPerson);
   }
   
   

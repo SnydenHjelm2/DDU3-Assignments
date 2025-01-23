@@ -12,13 +12,13 @@ class Lineup {
         parent.appendChild(control);
 
         let newPair = document.createElement("button");
-        let match = document.createElement("button");
+        let matchB = document.createElement("button");
         newPair.textContent = "New Pair";
-        match.textContent = "Match!";
+        matchB.textContent = "Match!";
         newPair.addEventListener("click", () => {Lineup.newPair()});
-        match.addEventListener("click", () => {Lineup.match()});
+        matchB.addEventListener("click", () => {Lineup.match()});
         document.querySelector(".control").appendChild(newPair);
-        document.querySelector(".control").appendChild(match);
+        document.querySelector(".control").appendChild(matchB);
 
         for (let player of players) {
             Lineup.renderPlayer("lineup", player.html);
@@ -33,15 +33,16 @@ class Lineup {
             lineup.appendChild(player);
         } else if (where === "match") {
             match.appendChild(player);
+        } else {
+            console.error("you donkey wrong parameter");
         }
     }
 
     static newPair() {
-        console.log(Lineup.matchPlayers);
-        for (let i=Lineup.matchPlayers.length; i>0; i--) {
-            Lineup.renderPlayer("lineup", Lineup.matchPlayers[i - 1].html);
-            Lineup.matchPlayers.splice(i - 1, 1);
+        for (let player of Lineup.matchPlayers) {
+            Lineup.renderPlayer("lineup", player.html);
         }
+        Lineup.matchPlayers.length = 0;
 
         let pair = Player.randomTwoPlayers();
         Lineup.renderPlayer("match", pair.chosenPlayer1.html);
@@ -57,7 +58,7 @@ class Lineup {
         let p2Choice = player2.go();
         console.log(p1Choice, p2Choice);
 
-        if ((p1Choice === "rock" && p2Choice === "rock") || (p1Choice === "paper" && p2Choice === "paper") || (p1Choice === "scissors" && p2Choice === "scissors")) {
+        if (p1Choice === p2Choice) {
             alert("Its a tie!");
         } else if ((p1Choice === "rock" && p2Choice === "scissors") || (p1Choice === "paper" && p2Choice === "rock") || (p1Choice === "scissors" && p2Choice === "paper")) {
             player1.won();
