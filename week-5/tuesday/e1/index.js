@@ -13,9 +13,12 @@ class C {
 
 let i1 = new C(3);
 console.log(i1.p2);
+//0
 i1.p2 = 13;
 console.log(i1.p2);
+//13
 i1.p2 = i1.p3;
 console.log(i1.p2);
+//13
 
 // Vad kommer att loggas på konsolen?
