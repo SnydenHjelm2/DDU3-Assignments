@@ -10,14 +10,14 @@ class Product {
                 return i;
             }
         }
+        return -1;
     }
 }
 
-let i1 = new Product;
-let i2 = new Product;
-let i3 = new Product;
-let i4 = new Product;
-console.log(i1.indexOfInstance);
-console.log(i2.indexOfInstance);
-console.log(i3.indexOfInstance);
-console.log(i4.indexOfInstance);
+for (i=0; i<10; i++) {
+    new Product;
+}
+
+console.log(Product.all[5].indexOfInstance)
+console.log(Product.all[7].indexOfInstance)
+console.log(Product.all[1].indexOfInstance)

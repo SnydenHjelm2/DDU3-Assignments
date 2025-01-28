@@ -12,7 +12,7 @@ class Book {
     get author () {return this._author};
 
     set year (value) {
-        if (value < 0) {
+        if (value < 0 || value.toFixed() != value) {
             console.error("Year must be bigger than 0");
             return;
         }

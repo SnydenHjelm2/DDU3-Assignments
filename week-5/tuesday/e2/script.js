@@ -26,16 +26,15 @@ class Product {
         let price = this.price;
         let discount = this.discount;
 
-        let priceWithDiscount = price - (price * (discount / 100));
-        return priceWithDiscount;
+        return price - (price * (discount / 100));
     }
 }
 
 let p1 = new Product;
 
 p1.productName = "Cucumber";
-p1.price = 600;
-p1.discount = 15;
+p1.price = 200;
+p1.discount = 10;
 
 console.log(p1.productName, p1.price, p1.discount);
-console.log("Discounted price for " + p1.productName + ":" + p1.finalPrice);
+console.log("Discounted price for " + p1.productName + ": " + p1.finalPrice);
