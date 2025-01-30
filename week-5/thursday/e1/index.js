@@ -8,6 +8,13 @@ const db = [
   {name: "Mario", age: 34, country: "Italy"},
   {name: "Paulus", age: 48, country: "Greece"},
   {name: "Zeus", age: 97, country: "Greece"},
+  {name: "Rafael", age: 29, country: "Portugal"},
+  {name: "Justinas", age: 24, country: "Lithuania"},
+  {name: "Nicolau", age: 76, country: "Romania"},
+  {name: "Kjell", age: 53, country: "Norway"},
+  {name: "Karsten", age: 34, country: "Denmark"},
+  {name: "Ivan", age: 21, country: "Romania"},
+  {name: "Grigorij", age: 28, country: "Ukraine"},
 ]
 
 function array_filter (targetArray, callback) {
@@ -53,3 +60,10 @@ function array_every(target, callback) {
   }
   return true;
 }
+
+console.log(array_filter(db, (x) => x.name === "Gurkan"));
+console.log(array_map(db, (x) => x.country));
+console.log(array_find(db, (x) => x.country === "Lithuania"));
+console.log(array_findIndexOf(db, (x) => x.name === "Rafael"));
+console.log(array_some(db, (x) => x.name === "Zeus"));
+console.log(array_every(db, (x) => x.age > 10));
