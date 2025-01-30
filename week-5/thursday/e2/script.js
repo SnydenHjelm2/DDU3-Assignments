@@ -69,3 +69,27 @@ function whoPaidTheMost() {
     let nameOfCustomer = Customers.filter((x) => x.id === mostExpensivePurchase.purchase.customerId);
     return nameOfCustomer[0].name;
 }
+
+function mostExpensiveBangkokPurchase() {
+    let expensive = {total: 0, purchase: {}};
+    let shopsInBangkok = Shops.filter((x) => x.city === "Bangkok");
+    let bangkokShopsIDS = shopsInBangkok.map((x) => x.id);
+    let purchasesInBangkok = Purchases.filter((x) => bangkokShopsIDS.includes(x.shopId));
+
+    for (let purchase of purchasesInBangkok) {
+        let priceOfPurchase = Items.filter((x) => purchase.itemIds.includes(x.id));
+        priceOfPurchase = priceOfPurchase.map((x) => x.price);
+        priceOfPurchase = priceOfPurchase.reduce((sum, price) => sum + price, 0);
+        
+        if (priceOfPurchase > expensive.total) {
+            expensive.total = priceOfPurchase;
+            expensive.purchase = purchase;
+        }
+    }
+    
+    switch (expensive.purchase.date.month) {
+        case 9:
+            return "September";
+        //etc...
+    }
+}
