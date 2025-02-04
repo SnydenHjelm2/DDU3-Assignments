@@ -8,11 +8,105 @@ class Artist extends People {
     constructor(alias, id) {
         super(alias, id);
     }
+
+    get followers() {
+        let fws = [];
+        for (let listener of db.listeners) {
+            if (listener.follows.includes(this.id)) {fws.push(listener)};
+        }
+        return fws;
+    }
+
+    get mostPopularSong() {
+        let allArtistsSongs = db.songs.filter((x) => x.artist_id === this.id);
+        
+        let obj = {
+            mostPopularComplete: {song: null, nListens: 0},
+            mostPopularSkipped: {song: null, nListens: 0},
+        }
+        let mostCompleted = 0;
+        let mostSkipped = 0;
+        for (let song of allArtistsSongs) {
+            let completed = 0;
+            let skipped = 0;
+            let timesListened = 0;
+            let allListensOfSong = allListens.filter((x) => x.song_id === song.id);
+            
+            for (let listen of allListensOfSong) {
+                if (listen.isComplete) {
+                    completed++
+                    timesListened++
+                } else {
+                    skipped++
+                    timesListened++
+                }
+            }
+            if (completed > mostCompleted) {
+                mostCompleted = completed;
+                obj.mostPopularComplete.nListens = timesListened;
+                obj.mostPopularComplete.song = song;
+            }
+
+            if (skipped > mostSkipped) {
+                mostSkipped = skipped;
+                obj.mostPopularSkipped.nListens = timesListened;
+                obj.mostPopularSkipped.song = song;
+            }
+        }
+
+        return obj;
+    }
+    
 }
 class Listener extends People {
     constructor(alias, id, follows = []) {
         super(alias, id);
         this.follows = follows;
+    }
+
+    get favoriteGenre() {
+        let allListensByListener = allListens.filter((x) => x.listener_id === this.id);
+        let songsFromListens = [];
+        for (let listen of allListensByListener) {
+            for (let song of allSongs) {
+                if (listen.song_id === song.id) {
+                    songsFromListens.push(song);
+                }
+            }
+        }
+
+        let genres = songsFromListens.map((x) => x.genre);
+        let genresOnlyOnce = [];
+        genres.forEach((x) => {
+            if (!genresOnlyOnce.includes(x)) {
+                genresOnlyOnce.push(x);
+            }
+        });
+
+        let genresArr = [];
+        genresOnlyOnce.forEach((x) => {
+            let count = 0;
+            for (let genre of genres) {
+                if (genre === x) {
+                    count++
+                }
+            }
+            genresArr.push({genre: x, count: count});
+        });
+
+        return genresArr.sort((a, b) => b.count - a.count)[0];
+        
+        /*genres = genres.reduce((acc, genre) => {
+            acc[genre] = (acc[genre] || 0) + 1;
+            return acc;
+        }, {});
+        
+        let genresArr = [];
+        for (let genre in genres) {
+            genresArr.push({genre, count: genres[genre]});
+        }
+        genresArr.sort((a, b) => b.count - a.count);
+        return genresArr[0];*/
     }
 }
 class Listen {
@@ -22,6 +116,15 @@ class Listen {
         this.listener_id = listener_id;
         this.song_id = song_id;
         this.length = length; // How long the song was listened to. If less than the song's length => it was skipped.
+    }
+
+    get isComplete() {
+        let listenedSong = db.songs.find((x) => x.id === this.song_id);
+        if (listenedSong.length === this.length) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 class Song {
@@ -33,3 +136,17 @@ class Song {
         this.length = length;
     }
 }
+
+let a1 = new Artist(db.artists[0].alias, db.artists[0].id);
+console.log(a1)
+let allListens = [];
+let allSongs = [];
+for (let item of db.listens) {
+    allListens.push(new Listen(item.day, item.time, item.listener_id, item.song_id, item.length));
+}
+for (let song of db.songs) {
+    allSongs.push(new Song(song.id, song.genre, song.title, song.artist_id, song.length));
+}
+let l1 = new Listener(db.listeners[0].alias, db.listeners[0].id, db.listeners[0].follows);
+console.log(l1);
+console.log(allSongs[0]);

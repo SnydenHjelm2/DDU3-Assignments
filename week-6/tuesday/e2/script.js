@@ -8,16 +8,14 @@ function makeCodedAlphabet(alph) {
     let code = [];
 
     alph1.forEach((letter) => {
-        let runWhile = true;
-
-        while (runWhile) {
-            let randomNumber = Math.floor(Math.random() * alph2.length);
-            if (alph2[randomNumber] === letter) {
-                continue;
-            } else {
-                code.push([letter, alph2[randomNumber]]);
-                alph2.splice(randomNumber, 1);
+        while (true) {
+            let i = Math.floor(Math.random() * alph2.length);
+            if (!(alph2[i] === letter)) {
+                code.push([letter, alph2[i]]);
+                alph2.splice(i, 1);
                 break;
+            } else if (alph2[i] === "z" && letter === "z") {
+               return makeCodedAlphabet(alphabet);
             }
         }
     });
@@ -28,15 +26,19 @@ function makeCodedAlphabet(alph) {
 function printCode(code, key) {
     
     for (let codeArr of code) {
-        if (key === codeArr[0]) {
+        if (key.toLowerCase() === codeArr[0]) {
             codedMessage.textContent += codeArr[1];
             decodedMessage.textContent += codeArr[0];
             return;
         }
     }
 
-    codedMessage.textContent += key;
-    decodedMessage.textContent += key;
+    if (key === "Backspace" || key === "Control" || key === "Tab" || key === "Shift" || key === "CapsLock") {
+        return
+    } else {
+        codedMessage.textContent += key;
+        decodedMessage.textContent += key;
+    }
 }
 
 
@@ -47,6 +49,6 @@ const input = document.querySelector("input");
 const codedMessage = document.querySelector("#coded");
 const decodedMessage = document.querySelector("#decoded");
 
-input.addEventListener("keypress", (e) => {
+input.addEventListener("keydown", (e) => {
     printCode(codedAlph, e.key);
 });
