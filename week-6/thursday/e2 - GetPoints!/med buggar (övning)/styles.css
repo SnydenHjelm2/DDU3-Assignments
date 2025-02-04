@@ -1,0 +1,32 @@
+
+select {
+  margin: 20px 0;
+}
+
+.grid {
+  --cellDims: 40px;
+  display: grid;
+  grid-template-columns: repeat(6, var(--cellDims));
+  grid-template-rows: repeat(6, var(--cellDims));
+  gap: 1px;
+  outline: none;
+
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid grey;
+    border-radius: 6px;
+
+    &.cell_0 { background-color: grey; }
+    &.cell_2 { background-color: skyblue; }
+    &.cell_4 { background-color: limegreen; }
+    &.cell_6 { background-color: pink; }
+    &.cell_8 { background-color: orange; }
+  }
+}
+
+.token {
+  background-color: black;
+  border-radius: 50%;
+}

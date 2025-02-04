@@ -108,6 +108,47 @@ class Listener extends People {
         genresArr.sort((a, b) => b.count - a.count);
         return genresArr[0];*/
     }
+
+    get first10Songs() {
+        let listensFromDay = allListens.filter((x) => x.date === 20);
+        listensFromDay.sort((a, b) => {
+            let aNum = 0;
+            let bNum = 0;
+            if (a.time.length === 4) {
+                aNum = parseInt(a.time.substring(2,5));
+            } else if (a.time.length === 5) {
+                aNum = parseInt(a.time.substring(3,6));
+            }
+
+            if (b.time.length === 4) {
+                bNum = parseInt(b.time.substring(2,5));
+            } else if (b.time.length === 5) {
+                bNum = parseInt(b.time.substring(3,6));
+            }
+            return aNum - bNum;
+        });
+
+        listensFromDay.sort((a, b) => parseInt(a.time.substring(0,2)) - parseInt(b.time.substring(0,2)));
+        let firstTenSongs = [];
+        for (let i=0; i<10; i++) {
+            firstTenSongs.push(listensFromDay[i]);
+        }
+        return firstTenSongs;
+    }
+
+    songsOnAGivenDay(day) {
+       let listensFromDay = allListens.filter((x) => x.date === day);
+       let songsFromDay = [];
+       for (let listen of listensFromDay) {
+            for (let song of allSongs) {
+                if (song.id === listen.song_id) {
+                    /*if (!songsFromDay.includes(song))*/ songsFromDay.push(song);
+                }
+            }
+       }
+
+       return songsFromDay;
+    }
 }
 class Listen {
     constructor(date, time, listener_id, song_id, length) {
