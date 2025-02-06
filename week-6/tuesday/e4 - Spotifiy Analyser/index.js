@@ -67,15 +67,31 @@ class Listener extends People {
     get favoriteGenre() {
         let allListensByListener = allListens.filter((x) => x.listener_id === this.id);
         let songsFromListens = [];
-        for (let listen of allListensByListener) {
+        allListensByListener.forEach((x) => {
             for (let song of allSongs) {
-                if (listen.song_id === song.id) {
+                if (x.song_id === song.id) {
                     songsFromListens.push(song);
                 }
             }
-        }
+        });
 
         let genres = songsFromListens.map((x) => x.genre);
+        // let dist = {};
+        // for (let genre of genres) {
+        //     if (dist[genre] === undefined) {
+        //         dist[genre] = 1
+        //     } else {
+        //         dist[genre]++
+        //     };
+        // }
+        // let pop = {total: 0, genre: null};
+        // for (let num in dist) {
+        //     if (num > pop.total) {
+        //         pop.total = num;
+        //     }
+        // }
+        // return pop;
+
         let genresOnlyOnce = [];
         genres.forEach((x) => {
             if (!genresOnlyOnce.includes(x)) {
@@ -179,6 +195,7 @@ class Song {
 }
 
 let a1 = new Artist(db.artists[0].alias, db.artists[0].id);
+let a2 = new Artist(db.artists[3].alias, db.artists[3].id);
 console.log(a1)
 let allListens = [];
 let allSongs = [];
