@@ -1,0 +1,17 @@
+Studera kodbasen till vänster.
+Du får inte göra några ändringar i constructorn.
+
+bornDate är alltså ett objekt med tre egenskaper:
+year: 4-siffrig
+month: tal mellan 1 och 12, båda inklusive
+day: tal mellan 1 och 31. båda inklusive.
+
+
+Utöka klassen Person med:
+
+Metoden setIdNumber som används i constructorn. Denna metod ska tillsätta instansens egenskap idNumber, ett fyrsiffrigt heltal.
+Metoden ska säkerställa att:
+  - Det inte finns någon annan person som har samma födelsedatum och samma idNumber (precis som för vårt vanliga personnummer).
+  - Den tredje siffran i idNumber är jämt för kvinnor (gender = "f") och udda för män (gender = "m").
+
+Du kan utgå från att det föds färre än 999 personer av varje kön per dag i Sverige. Dvs. det kommer alltid att finnas ett möjligt idNumber.

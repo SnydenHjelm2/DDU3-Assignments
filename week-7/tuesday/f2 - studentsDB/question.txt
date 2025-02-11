@@ -1,0 +1,22 @@
+Konstanten MonthsDays innehåller antalet dagar i varje månad.
+Januari (index 0) har 31 dagar, februari (index 1) har 28 dagar, etc.
+Konstanten STUDENTS innehåller objekt som vart och ett representerar en student.
+  Courses är en array av kurser som studenten har läst.
+    Egenskapen year visar när studenten läste kursen.
+    Egenskapen g:
+      Om egenskapen g är false => studenten har inte ännu klarat kursen
+      Annars är dess värde året då studenten klarade kursen.
+
+Klassen Student har påbörjats men måste utökas med:
+
+En getter / setter-par som hanterar egenskapen born.
+  - Året måste ha 4 siffror
+  - Månaden måste vara en siffra mellan 1 och 12 (inklusive)
+  - Dagen måste vara en möjlig dag i den aktuella månaden. Dvs, det får inte förekomma en day 30 på månad 2 (feb). Du kan bortse från skottår, då feb har 29 dagar. Du måste använda dig av arrayen MonthsDays för att kontrollera detta, du får inte sätta upp ett gäng if-satser för att kontrollera det.
+
+
+En getter pnr som returnerar studentens personnummer, som består av 8 siffror (födelsedatum), bindestreck samt 4 siffror (idNummer)
+  Notera att Kerstins pnr är 19981103-4707, och att man måste lägga till en nolla om månaden eller dagen är < 10. I Kerstins fall har vi lagt till en nolla före 3 (som var dagen).
+
+
+En static getter goodResults, som returnerar en array av studenterna som har klarat alla sina kurser samma år som de läste dem. Du måste använda en eller flera arraymetoder för att lösa detta. Ingen loop (for eller while) får användas.

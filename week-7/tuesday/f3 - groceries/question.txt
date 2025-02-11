@@ -1,0 +1,14 @@
+Studera kodbasen till vänster.
+
+Koda följande:
+
+En static getter allBeans för klassen Item som returnerar en array av alla instanser av Item som också är Beans. Du måste använda en eller flera arraymetoder för att lösa detta. Ingen loop (for eller while) får användas.
+  Förslag: Koda först en getter isBeans för Item som returnerar true om instansen är en Bean och false annars.
+
+
+En static metod moreExpensiveThan(pricePerKg) som returnerar en array av alla instanser av Item som kostar, per kilo, mer än pricePerKg. Du måste använda en eller flera arraymetoder för att lösa detta. Ingen loop (for eller while) får användas.
+  Förslag: Koda först en getter pricePerKilo för Item som returnerar priset per kilo. Notera att weight-egenskapen anges i gram.
+
+
+
+

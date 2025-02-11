@@ -1,0 +1,23 @@
+Studera kodbasen till vänster.
+Du ska INTE koda funktionen inputError.
+
+
+Egneskapen date (se Listening) är ett objekt med tre egenskaper:
+year: 4-siffrig
+month: tal mellan 1 och 12, båda inklusive
+day: tal mellan 1 och 31. båda inklusive.
+
+Koda följande:
+
+En getter / setter-par som hanterar egenskapen genre i Song.
+  Egenskapen genre måste vara en strängarna i den statiska egenskapen Genres.
+  Om man försöker tillsätta något annat än dessa värden så ska funktionen inputError anropas.
+
+
+En static metod allByGenre(genre) för Song som returnerar en array av alla sånger i den genren. Om den angivna genre inte är giltig så ska funktionen inputError anropas.
+
+
+En metod nListeningsInMonth(month) för Song som returnerar antalet gånger som sången har lyssnats under månaden month.
+  month ska vara ett heltal mellan 1 och 12.
+    Om month inte är ett heltal mellan 1 och 12 så ska funktionen inputError anropas.
+  Det spelar ingen roll vilket år eller dag Listenings skedde. 

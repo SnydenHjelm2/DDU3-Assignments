@@ -1,0 +1,13 @@
+Studera kodbasen till vänster.
+
+Koda:
+
+Den statiska metoden breeds(region) för klassen Dog, som returnerar en array av objekt, där varje objekt representerar en av hundraserna som lever i regionen region. För varje hundras ska följande information finnas:
+{
+  breed: string (the name of the breed)
+  nDogsAlive: antalet hundar av den rasen som lever i den regionen
+  nDogsTotal: antalet hundar av den rasen som lever eller har levt i den regionen
+  averageAgeInRegion: genomsnittliga åldern på hundarna av den rasen som har levt i den regionen
+  averageAgeTotal: genomsnittliga åldern på hundarna av den rasen (oavsett vilken region de har levt i)
+}
+
