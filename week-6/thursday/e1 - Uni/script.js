@@ -1,5 +1,12 @@
 class People {
     static all = [];
+    static byPnr(pnr) {
+        return People.all.filter((x) => {
+            let personPnr = x.pnr;
+            if (personPnr === pnr) {return true}
+            else {return false};
+        });
+    }
     constructor(data) {
         this.born = data.born;
         this.name = data.name;
@@ -7,6 +14,17 @@ class People {
     }
     get age() {
         return 2025 - this.born.year;
+    }
+    get pnr() {
+        if (this.born.month < 10 && this.born.day < 10) {
+            return `${this.born.year}0${this.born.month}0${this.born.day}${this.idNumber}`;
+        } else if (this.born.month < 10) {
+            return `${this.born.year}0${this.born.month}${this.born.day}${this.idNumber}`;
+        } else if (this.born.day < 10) {
+            return `${this.born.year}${this.born.month}0${this.born.day}${this.idNumber}`;
+        } else {
+            return `${this.born.year}${this.born.month}${this.born.day}${this.idNumber}`;
+        }
     }
 }
 
@@ -80,15 +98,95 @@ class Student extends People {
     get allPassed() {
         return !this.courses.some((x) => x.g === false);
     }
+    get directRate() {
+        let studentCourses = this.courses;
+        let offeringIDS = studentCourses.map((x) => x.offeringId);
+        let offeringsStudentAttended = Offering.all.filter((x) => offeringIDS.includes(x.id));
+        let passedSameYear = {passed: 0, failed: 0};
+        for (let course of studentCourses) {
+            for (let offer of offeringsStudentAttended) {
+                if (offer.id === course.offeringId) {
+                    if (offer.year === course.g) {passedSameYear.passed++}
+                    else {passedSameYear.failed++};
+                }
+            }
+        }
+        return ((passedSameYear.passed / (passedSameYear.passed + passedSameYear.failed)) * 100).toFixed(1) + "%";
+    }
 }
 
 class Teacher extends People {
     static all = [];
+    static get hardestWorking() {
+        let mostOfferings = {total: 0, teacher: null};
+        for (let teacher of Teacher.all) {
+            let teacherPnr = teacher.pnr;
+            let offeringsByTeacher = Offering.all.filter((x) => x.teacher === teacherPnr);
+            
+            if (offeringsByTeacher.length > mostOfferings.total) {
+                mostOfferings.total = offeringsByTeacher.length;
+                mostOfferings.teacher = teacher;
+            }
+        }
+        return mostOfferings;
+    }
+    static get bestKnown() {
+        let obj = {total: 0, teacher: null};
+
+        for (let teacher of Teacher.all) {
+            let teacherStudents = 0;
+            let teacherOfferings = teacher.courses;
+            teacherOfferings = teacherOfferings.map((x) => x.students);
+            let allStudentsTeacherHasHad = teacherOfferings.map((x) => x.length);
+            let totalStudents = 0;
+            for (let num of allStudentsTeacherHasHad) {
+                totalStudents += num;
+            }
+
+            if (totalStudents > obj.total) {
+                obj.total = totalStudents;
+                obj.teacher = teacher;
+            }
+        }
+
+        return obj.teacher;
+    }
     constructor(data) {
         super(data);
 
         Teacher.all.push(this);
         People.all.push(this);
+    }
+    get courses() {
+        let teacherPnr = this.pnr;
+        return Offering.all.filter((x) => x.teacher === teacherPnr);
+    }
+    get years() {
+        let allOfferingsByTeacher = this.courses;
+        let allYears = allOfferingsByTeacher.map((x) => x.year);
+        let yearUsed = [];
+        for (let year of allYears) {
+            if (yearUsed.includes(year)) {continue};
+            yearUsed.push(year);
+        }
+        return yearUsed.sort((a, b) => a - b);
+    }
+    get succesRate() {
+        let teacherOfferings = this.courses;
+        let passedOrNot = {passed: 0, failed: 0};
+        for (let offer of teacherOfferings) {
+            let studentsInOffering = offer.students;
+            for (let student of studentsInOffering) {
+                for (let course of student.courses) {
+                    if (course.offeringId === offer.id) {
+                        if (course.g) {passedOrNot.passed++}
+                        else {passedOrNot.failed++};
+                        break;
+                    }
+                }
+            }
+        }
+        return ((passedOrNot.passed / (passedOrNot.passed + passedOrNot.failed)) * 100).toFixed(1) + "%";
     }
 }
 
@@ -205,6 +303,24 @@ class Course {
         });
 
         return studentsInThisCourse;
+    }
+    get successRate() {
+        let offeringsOfCourse = Offering.all.filter((x) => x.courseId === this.id);
+        let passedOrNot = {passed: 0, failed: 0};
+
+        for (let offer of offeringsOfCourse) {
+            let studentsInOffering = offer.students;
+
+            for (let student of studentsInOffering) {
+                for (let course of student.courses) {
+                    if (course.offeringId === offer.id) {
+                        if (course.g) {passedOrNot.passed++}
+                        else {passedOrNot.failed++};
+                    }
+                }
+            }
+        }
+        return ((passedOrNot.passed / (passedOrNot.passed + passedOrNot.failed)) * 100).toFixed(1) + "%";
     }
 }
 
