@@ -1,0 +1,213 @@
+[
+    {
+        "name": "Buddy",
+        "age": 10,
+        "breed": "Poodle",
+        "weight": 35.4,
+        "favorite_treats": [
+            "Chicken Jerky",
+            "Bones",
+            "Peanut Butter Treats",
+            "Biscuits"
+        ]
+    },
+    {
+        "name": "Bella",
+        "age": 14,
+        "breed": "Beagle",
+        "weight": 39.4,
+        "favorite_treats": [
+            "Peanut Butter Treats"
+        ]
+    },
+    {
+        "name": "Oscar",
+        "age": 9,
+        "breed": "Rottweiler",
+        "weight": 29.4,
+        "favorite_treats": [
+            "Cheese"
+        ]
+    },
+    {
+        "name": "Lucy",
+        "age": 8,
+        "breed": "Poodle",
+        "weight": 21.9,
+        "favorite_treats": [
+            "Cheese",
+            "Peanut Butter Treats",
+            "Bones"
+        ]
+    },
+    {
+        "name": "Coco",
+        "age": 6,
+        "breed": "Labrador Retriever",
+        "weight": 19.7,
+        "favorite_treats": [
+            "Peanut Butter Treats",
+            "Cheese",
+            "Chicken Jerky",
+            "Biscuits"
+        ]
+    },
+    {
+        "name": "Toby",
+        "age": 5,
+        "breed": "Golden Retriever",
+        "weight": 33.6,
+        "favorite_treats": [
+            "Peanut Butter Treats"
+        ]
+    },
+    {
+        "name": "Duke",
+        "age": 6,
+        "breed": "Poodle",
+        "weight": 10.2,
+        "favorite_treats": [
+            "Biscuits",
+            "Bones",
+            "Chicken Jerky",
+            "Peanut Butter Treats"
+        ]
+    },
+    {
+        "name": "Daisy",
+        "age": 6,
+        "breed": "Labrador Retriever",
+        "weight": 15.4,
+        "favorite_treats": [
+            "Chicken Jerky",
+            "Biscuits",
+            "Bones"
+        ]
+    },
+    {
+        "name": "Molly",
+        "age": 3,
+        "breed": "Dachshund",
+        "weight": 21.5,
+        "favorite_treats": [
+            "Cheese",
+            "Peanut Butter Treats",
+            "Bones"
+        ]
+    },
+    {
+        "name": "Rocky",
+        "age": 9,
+        "breed": "Rottweiler",
+        "weight": 34.7,
+        "favorite_treats": [
+            "Bones",
+            "Peanut Butter Treats",
+            "Biscuits"
+        ]
+    },
+    {
+        "name": "Sadie",
+        "age": 5,
+        "breed": "Poodle",
+        "weight": 12.8,
+        "favorite_treats": [
+            "Cheese"
+        ]
+    },
+    {
+        "name": "Bailey",
+        "age": 1,
+        "breed": "Boxer",
+        "weight": 13.1,
+        "favorite_treats": [
+            "Bones",
+            "Biscuits",
+            "Peanut Butter Treats",
+            "Cheese"
+        ]
+    },
+    {
+        "name": "Charlie",
+        "age": 2,
+        "breed": "Golden Retriever",
+        "weight": 39.2,
+        "favorite_treats": [
+            "Chicken Jerky",
+            "Cheese"
+        ]
+    },
+    {
+        "name": "Roxy",
+        "age": 4,
+        "breed": "Boxer",
+        "weight": 24.8,
+        "favorite_treats": [
+            "Chicken Jerky"
+        ]
+    },
+    {
+        "name": "Lola",
+        "age": 11,
+        "breed": "Bulldog",
+        "weight": 14.0,
+        "favorite_treats": [
+            "Peanut Butter Treats",
+            "Biscuits",
+            "Cheese"
+        ]
+    },
+    {
+        "name": "Jack",
+        "age": 3,
+        "breed": "Golden Retriever",
+        "weight": 19.9,
+        "favorite_treats": [
+            "Bones",
+            "Peanut Butter Treats",
+            "Cheese",
+            "Biscuits",
+            "Chicken Jerky"
+        ]
+    },
+    {
+        "name": "Luna",
+        "age": 7,
+        "breed": "Dachshund",
+        "weight": 8.1,
+        "favorite_treats": [
+            "Cheese",
+            "Biscuits"
+        ]
+    },
+    {
+        "name": "Max",
+        "age": 15,
+        "breed": "Boxer",
+        "weight": 5.8,
+        "favorite_treats": [
+            "Biscuits",
+            "Cheese"
+        ]
+    },
+    {
+        "name": "Zoe",
+        "age": 5,
+        "breed": "Dachshund",
+        "weight": 13.7,
+        "favorite_treats": [
+            "Bones",
+            "Peanut Butter Treats"
+        ]
+    },
+    {
+        "name": "Maggie",
+        "age": 10,
+        "breed": "Rottweiler",
+        "weight": 5.8,
+        "favorite_treats": [
+            "Chicken Jerky",
+            "Biscuits"
+        ]
+    }
+]
