@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnydenHjelm API Documentation</title>
+    <link rel="stylesheet" href="/five.css">
+</head>
+<body>
+    <h1>SnydenHjelm API Documentation</h1>
+    <nav>
+        <a href="#post">POST</a>
+        <a href="#delete">DELETE</a>
+        <a href="#put">PUT</a>
+        <a href="#patch">PATCH</a>
+        <a href="#url">URL-Parameters</a>
+        <a href="#url-name">URL-name</a>
+        <a href="#url-delete">URL-delete</a>
+    </nav>
+    <main>
+        <div id="post" class="documentation-item">
+            <div class="left">
+                <h2>POST Request</h2>
+                <p>The POST request is used to add a new dog to the database.</p>
+                <p>Required headers: "Content-Type": "application/json"</p>
+                <p>When successfull, status code 201 (Created) will be returned.
+                    This means the dog was successfully added to the database.
+                </p>
+                <p>If one or more of the required attributes are missing, status code 400 (Bad Request) will be returned.
+                    This means the request body was incomplete or the object was missing one or more of the required attributes.
+                </p>
+                <p>If sent request is not valid JSON, status code 415 (Unsupported Media Type) will be returned.
+                    The POST request is expecting a valid JSON request.
+                </p>
+                <p>All responses are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">Expected Request Body</p>
+                    <p>
+                        {<br>
+                            "name": <i>string</i>,<br>
+                            "age": <i>number</i>,<br>
+                            "breed": <i>string</i>,<br>
+                            "weight": <i>number</i>,<br>
+                            "favorite_treats": [<i>string</i>]<br>
+                        }
+                    </p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">201 Response</p>
+                    <p>{"message": "The dog was successfully added to the database"}</p>
+
+                    <p class="bold">400 Response</p>
+                    <p>{"error": "Bad reqeust, one or more attributes are missing"}</p>
+
+                    <p class="bold">415 Response</p>
+                    <p>{"error": "Unsupported Media Type, JSON was expected"}</p>
+                </div>
+            </div>
+        </div>
+        <div id="delete" class="documentation-item">
+            <div class="left">
+                <h2>DELETE Request</h2>
+                <p>The DELETE request takes the ID of a dog and removes it from the database.</p>
+                <p>Required headers: "Content-Type": "application/json"</p>
+                <p>When successfull, status code 200 (OK) is returned. This means the dog was successfully deleted from the database</p>
+                <p>If the request object does not have key "id", status code 400 (Bad Request) is returned. 
+                    The "id" key must be present in the request.
+                </p>
+                <p>If no dog was found matching with the provided id, status code 404 (Not Found) is returned.
+                    This means the ID provided does not exist in the database.
+                </p>
+                <p>If sent request is not valid JSON, status code 415 (Unsupported Media Type) will be returned.
+                    The POST request is expecting a valid JSON request.
+                </p>
+                <p>All responses are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">Expected Request Body</p>
+                    <p>{"id": <i>number</i>}</p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">200 Response</p>
+                    <p>{ "message": "Your request was successfull" }</p>
+
+                    <p class="bold">400 Response</p>
+                    <p>{ "error": "Bad Request, one or more attributes are missing" }</p>
+                    
+                    <p class="bold">404 Response</p>
+                    <p>{ "error": "Not Found, the dog does not exist" }</p>
+
+                    <p class="bold">415 Response</p>
+                    <p>{"error": "Unsupported Media Type, JSON was expected"}</p>
+                </div>
+            </div>
+        </div>
+        <div class="documentation-item" id="put">
+            <div class="left">
+                <h2>PUT Request</h2>
+                <p>The PUT request is used to edit data about a specific dog in the database.</p>
+                <p>Required headers: "Content-Type": "application/json"</p>
+
+                <p>If the request was succesfull, status code 200 (OK) is returned. This means the specified dog was edited successfilly.</p>
+                <p>If one or more of the required attributes are missing from request object, status code 400 (Bad Request) is returned.
+                    This means that all required attributes were not specified.
+                </p>
+                <p>If the requested dog is not found in the database, status code 404 (Not Found) is returned.
+                    This means the dog was not found in the database.
+                </p>
+                <p>If sent request is not valid JSON, status code 415 (Unsupported Media Type) will be returned.
+                    The POST request is expecting a valid JSON request.
+                </p>
+                <p>All responses are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">Expected Request Body</p>
+                    <p>
+                        {<br>
+                            "name": <i>string</i>,<br>
+                            "age": <i>number</i>,<br>
+                            "breed": <i>string</i>,<br>
+                            "weight": <i>number</i>,<br>
+                            "favorite_treats": [<i>string</i>],<br>
+                            "id": <i>number</i>,<br>
+                        }
+                    </p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">200 Response</p>
+                    <p>{ "message": "Your request was successfull" }</p>
+
+                    <p class="bold">400 Response</p>
+                    <p>{ "error": "Bad Request, one or more attributes are missing" }</p>
+
+                    <p class="bold">404 Response</p>
+                    <p>{ "error": "Not Found, the dog does not exist" }</p>
+
+                    <p class="bold">415 Response</p>
+                    <p>{ "error": "Unsupported Media Type, JSON was expected" }</p>
+                </div>
+            </div>
+        </div>
+        <div class="documentation-item" id="patch">
+            <div class="left">
+                <h2>PATCH request</h2>
+                <p><b>ALERT! The PATCH request is only viable trough a URL-Pattern.</b></p>
+                <p>The PATCH request is used to edit one or more attributes of a dog, instead of the whole object.</p>
+                <p>It is reached by entering a dogs name in the URL, in a specific pattern.</p>
+                <p>To the specified URL, a request body is sent.</p>
+                <p>If the request is successfull, status code 200 (OK) is returned. This means the attributes were successfully edited.</p>
+                <p>If none of the attributes match with the attributes of a dog in the database, status code 400 (Bad Request) is returned.
+                    This means none of the attributes a dog-object has in the database were specified in the request.
+                </p>
+                <p>If the specified dog was not found in the database, status code 404 (Not Found) is returned.</p>
+                <p>If sent request is not valid JSON, status code 415 (Unsupported Media Type) will be returned.
+                    The POST request is expecting a valid JSON request.
+                </p>
+                <p>All responses are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">URL Pattern</p>
+                    <p>/dogs/:name</p>
+
+                    <p class="bold">Expected Request Body</p>
+                    <p>Atleast ONE of the attributes must be specified.</p>
+                    <p>
+                        {<br>
+                            "name": <i>string</i>,<br>
+                            "age": <i>number</i>,<br>
+                            "breed": <i>string</i>,<br>
+                            "weight": <i>number</i>,<br>
+                            "favorite_treats": [<i>string</i>]<br>
+                        }
+                    </p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">200 Response</p>
+                    <p>{ "message": "Your request was successfull" }, {<i>name</i> edited}</p>
+
+                    <p class="bold">400 Response</p>
+                    <p>{ "error": "Bad Request, one or more attributes are missing" }</p>
+
+                    <p class="bold">404 Response</p>
+                    <p>{ "error": "Not Found, the dog does not exist" }</p>
+
+                    <p class="bold">415 Response</p>
+                    <p>{ "error": "Unsupported Media Type, JSON was expected" }</p>
+                </div>
+            </div>
+        </div>
+        <div class="documentation-item" id="url">
+            <div class="left">
+                <h2>URL Parameters</h2>
+                <p>URL Parameter are used to filter for specific dogs using types of data.</p>
+
+                <p>URL param "age" will filter out and display dogs with the specified age.</p>
+
+                <p>URL param "treat" will filter out and display dogs who has the specified treat as a favorite treat.</p>
+
+                <p>These two can be used together, and will then filter both dogs of the specified age and the specified favorite treat.</p>
+
+                <p>If the request is successfull, and a dog is found, status code 200 (OK) is returned.</p>
+                <p>If no dog is found from the specified conditions, statud code 404 (Not Found) is returned.</p>
+                <p>All respones are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">URL Patterns</p>
+                    <p>/dogs?treat=<i>string</i></p>
+                    <p>/dogs?age=<i>number</i></p>
+                    <p>/dogs?age<i>number</i>&treat=<i>string</i></p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">200 Response</p>
+                    <p>{ "message": "Your request was successfull" }</p>
+
+                    <p class="bold">404 Response</p>
+                    <p>{ "error": "Not Found, the dog does not exist" }</p>
+                </div>
+            </div>
+        </div>
+        <div class="documentation-item" id="url-name">
+            <div class="left">
+                <h2>URL Name</h2>
+                <p>This URL Pattern is used to display a dog with a specified name.</p>
+
+                <p>If successfull, the status code 200 (OK) will be returned. This means a dog was found.</p>
+                <p>If no dog could be found with the specified name, status code 404 (Not Found) will be returned.</p>
+                <p>All responses are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">URL Pattern</p>
+                    <p>/dogs/:name</p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">200 Response</p>
+                    <p>{ "message": "Your request was successfull" }</p>
+
+                    <p class="bold">404 Response</p>
+                    <p>{ "error": "Not Found, the dog does not exist" }</p>
+                </div>
+            </div>
+        </div>
+        <div class="documentation-item" id="url-delete">
+            <div class="left">
+                <h2>URL DELETE</h2>
+                <p>This URL Patters is used to delete a dog from the database, using a specified name.</p>
+
+                <p>If the deletion was successfull and a dog was found matching the name provided, status code 200 (OK) will be returned.</p>
+                <p>If no dog with the specified name was found, status code 400 (Not Found) will be returned.</p>
+                <p>All responses are JSON.</p>
+            </div>
+            <div class="right">
+                <div class="request">
+                    <h2>Request</h2>
+                    <p class="bold">URL Pattern</p>
+                    <p>/DELETE/dogs/:name</p>
+                </div>
+                <div class="response">
+                    <h2>Response</h2>
+                    <p class="bold">200 Response</p>
+                    <p>{ "message": "Your request was successfull" }</p>
+
+                    <p class="bold">404 Response</p>
+                    <p>{ "error": "Not Found, the dog does not exist" }</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -137,9 +137,11 @@ async function handler(req) {
             console.log(age, treat);
 
             let dogsThatMatch = dogData.filter((x) => x.age === parseInt(age));
-            console.log(dogsThatMatch);
             dogsThatMatch = dogsThatMatch.filter((x) => x.favorite_treats.includes(treat));
-            console.log(dogsThatMatch);
+
+            if (dogsThatMatch.length === 0) {
+                return new Response(generateMessage(404), {headers: generateJSONHeader()});
+            }
 
             return new Response(JSON.stringify(dogsThatMatch), {headers: generateJSONHeader()});
         } else if (reqURL.searchParams.has("age")) {
@@ -147,28 +149,35 @@ async function handler(req) {
             value = parseInt(value);
     
             let dogsOfAge = dogData.filter((x) => x.age === value);
+
+            if (dogsOfAge.length === 0) {
+                return new Response(generateMessage(404), {headers: generateJSONHeader()});
+            }
     
             return new Response(JSON.stringify(dogsOfAge), {headers:generateJSONHeader()});
         } else if (reqURL.searchParams.has("treat")) {
             let value = reqURL.searchParams.get("treat");
 
             let dogsWhoLikeTreat = dogData.filter((x) => x.favorite_treats.includes(value));
+            if (dogsWhoLikeTreat.length === 0) {
+                return new Response(generateMessage(404), {headers: generateJSONHeader()});
+            }
             return new Response(JSON.stringify(dogsWhoLikeTreat), {headers: generateJSONHeader()});
         }
     }
 
-    // let nameRoute = new URLPattern({pathname: "/dogs/:name"});
-    // let nameMatch = nameRoute.exec(req.url);
-    // if (nameMatch) {
-    //     let name = nameMatch.pathname.groups.name;
-    //     let dogWithName = JSON.parse(getDogData()).find((x) => x.name.toLowerCase() === name.toLowerCase());
+    let nameRoute = new URLPattern({pathname: "/dogs/:name"});
+    let nameMatch = nameRoute.exec(req.url);
+    if (nameMatch) {
+        let name = nameMatch.pathname.groups.name;
+        let dogWithName = JSON.parse(getDogData()).find((x) => x.name.toLowerCase() === name.toLowerCase());
 
-    //     if (dogWithName) {
-    //         return new Response(JSON.stringify(dogWithName), {headers: generateJSONHeader()});
-    //     } else {
-    //         return new Response(generateMessage(404), {status: 404, headers: generateJSONHeader()});
-    //     }
-    // }
+        if (dogWithName) {
+            return new Response(JSON.stringify(dogWithName), {headers: generateJSONHeader()});
+        } else {
+            return new Response(generateMessage(404), {status: 404, headers: generateJSONHeader()});
+        }
+    }
 
     let deleteRoute = new URLPattern({pathname: "/DELETE/dogs/:name"});
     let deleteMatch = deleteRoute.exec(req.url);
