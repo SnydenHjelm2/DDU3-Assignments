@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD App Tester</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: ghostwhite;
+            color: #3a3a3a;
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            max-width: 786px;
+            margin: 32px auto 24px auto;
+            font-family: monospace;
+            color: #0060b5;
+            text-align: center;
+        }
+
+        h1 i {
+            padding-top: 4px;
+            font-size: 14px;
+            display: block;
+            color: #5e788e;
+            font-weight: normal;
+        }
+
+        #intro {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+            font-size: 14px;
+        }
+
+        section {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            max-width: 786px;
+            margin: 0 auto 32px;
+            padding: 12px 10px;
+
+            background-color: white;
+            border: 1px solid #c9ccce;
+            box-shadow: inset 0 -2px #dce9f7;
+            border-radius: 4px;
+            transition: border-color 300ms ease;
+        }
+
+        section:hover {
+            border: 1px solid #009fff;
+            box-shadow: 6px 6px 0 #e0eef7;
+        }
+
+        section header {
+            grid-row: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #dce9f7;
+        }
+
+        section header h2 {
+            font-size: 16px;
+            font-family: monospace;
+            color: #0060b5;
+        }
+
+        section header p {
+            background-color: ghostwhite;
+            color: black;
+            padding: 2px 4px;
+            border-radius: 4px;
+            border: 1px solid #dedeff;
+        }
+
+        section[data-method="GET"] header span {
+            color: #016382;
+        }
+
+        section[data-method="POST"] header span {
+            color: #129912;
+        }
+
+        section[data-method="DELETE"] header span {
+            color: #d56363;
+        }
+
+        section[data-method="PATCH"] header span {
+            color: #b545a9;
+        }
+
+        section header p {
+            font-family: monospace;
+        }
+
+        section>main {
+            grid-row: 2;
+            font-size: 15px;
+            padding: 0 2px;
+        }
+
+        section>main ul {
+            list-style: none;
+            padding-left: 16px;
+        }
+
+        section>main li {
+            margin-bottom: 4px;
+        }
+
+        section>main li:first-child {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        section code {
+            font-size: 12px;
+            background-color: ghostwhite;
+            color: black;
+            padding: 1px 4px;
+            border-radius: 4px;
+            border: 1px solid #dedeff;
+        }
+
+        section footer {
+            grid-row: 3;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 24px;
+        }
+
+        section footer .message {
+            font-size: 13px;
+            flex: 1;
+            text-align: right;
+        }
+
+        section.success footer .message {
+            color: #085508;
+        }
+
+        section.error footer .message {
+            color: #652828;
+        }
+
+        section footer .notice {
+            justify-self: flex-start;
+            font-style: italic;
+            font-size: 13px;
+            background-color: #fffbe8;
+            color: #535308;
+            padding: 2px 4px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        section footer button {
+            color: white;
+            background-color: #2063d4;
+            border: 0;
+            border-bottom: 3px solid #164ba6;
+            border-radius: 4px;
+            padding: 4px 8px;
+            transition: background-color 300ms ease;
+        }
+
+        section footer button:hover {
+            background-color: #164ba6;
+        }
+
+        section.running {
+            border: 1px solid #df00ff;
+            box-shadow: 6px 6px 0 #f5e0f7;
+        }
+
+        section.error {
+            border: 1px solid #ff1800;
+            box-shadow: 6px 6px 0 #f7e0e0;
+        }
+
+        section.success {
+            border: 1px solid #19a804;
+            box-shadow: 6px 6px 0 #e2f7e0;
+        }
+
+        body>footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 21px;
+            color: #5a5a5a;
+            max-width: 768px;
+            margin: 0 auto;
+            border-top: 1px solid #e1e5e8;
+        }
+
+        #run-all {
+            display: block;
+            max-width: 768px;
+            margin: 16px auto 24px auto;
+            color: white;
+            background-color: #2063d4;
+            border: 0;
+            border-bottom: 3px solid #164ba6;
+            border-radius: 4px;
+            padding: 6px 12px;
+            transition: background-color 300ms ease;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CRUD App Tester<i>Create, Read, Update, Delete</i></h1>
+    <p id="intro">
+        Your assignment is to create a JSON-API that passes all the tests below.
+        Use the information from these tests, and the console, to figure out
+        what you will need to do. You are finished once you can run all the
+        tests in a sequence starting from the first. For your convenience, there
+        is a "run all tests" button at the end.<br><br><b>Note:</b> these tests
+        require your "database" (JSON file) to be empty, so you might have to
+        empty it from time to time.
+    </p>
+
+    <section data-method="GET" data-endpoint="/xyz" data-status="404">
+        Request a non-existing endpoint
+    </section>
+
+    <section data-method="GET" data-endpoint="/dogs" data-status="200" data-response="[]">
+        Request all dogs (empty at the start)
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs" data-status="201"
+        data-request='{ "name": "Arya", "age": 5, "breed": "Husky", "favoriteTreats": ["Frollic"] }'
+        data-response='{ "id": 1, "name": "Arya", "age": 5, "breed": "Husky", "favoriteTreats": ["Frollic"] }'>
+        Create a new dog
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs" data-status="201"
+        data-request='{ "name": "Sara", "age": 3, "breed": "Frenchie", "favoriteTreats": ["Meatballs"] }'
+        data-response='{ "id": 2, "name": "Sara", "age": 3, "breed": "Frenchie", "favoriteTreats": ["Meatballs"] }'>
+        Create another new dog
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs" data-status="400" data-request='{ "name": "" }'>
+        Create a dog with missing data
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs" data-status="400" data-request="1337">
+        Create a dog with invalid data
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs" data-status="400" data-request="1337"
+        data-content-type="text/plain">
+        Create a dog with invalid content-type
+    </section>
+
+    <section data-method="DELETE" data-endpoint="/dogs" data-status="405">
+        Request dogs with invalid method
+    </section>
+
+    <section data-method="GET" data-endpoint="/dogs/1" data-status="200"
+        data-response='{ "id": 1, "name": "Arya", "age": 5, "breed": "Husky", "favoriteTreats": ["Frollic"] }'>
+        Request a single dog
+    </section>
+
+    <section data-method="GET" data-endpoint="/dogs/xyz" data-status="404">
+        Request a non-existing dog
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs/10" data-status="405">
+        Request a dog with invalid method
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/xyz" data-status="404">
+        Update a non-existing dog
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/1" data-status="200" data-request='{ "age": 100 }'>
+        Update a single dog
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/1" data-status="400" data-request='{}'>
+        Update with missing values
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/1" data-status="400" data-request='{ "name": "" }'>
+        Update with an invalid name
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/1" data-status="400" data-request='{ "age": -1 }'>
+        Update with an invalid age
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/1" data-status="400" data-request='{ "breed": "" }'>
+        Update with an invalid breed
+    </section>
+
+    <section data-method="PATCH" data-endpoint="/dogs/1" data-status="400" data-request='{ "breed": "Should not work"}'
+        data-content-type="text/plain">
+        Update with invalid content-type
+    </section>
+
+    <section data-method="POST" data-endpoint="/dogs/1/treat" data-status="200" data-request='"Meatballs"'>
+        Request to add a treat to a dog
+    </section>
+
+    <section data-method="GET" data-endpoint="/dogs" data-status="200"
+        data-response='[{ "id": 1, "name": "Arya", "age": 100, "breed": "Husky", "favoriteTreats": ["Frollic", "Meatballs"] }, { "id": 2, "name": "Sara", "age": 3, "breed": "Frenchie", "favoriteTreats": ["Meatballs"] }]'>
+        Request all dogs (with updates)
+    </section>
+
+    <section data-method="DELETE" data-endpoint="/dogs/xyz" data-status="404">
+        Delete a non-existing dog
+    </section>
+
+    <section data-method="DELETE" data-endpoint="/dogs/1" data-status="200">
+        Delete a single dog
+    </section>
+
+    <button id="run-all">Run all tests</button>
+
+    <footer>🐶</footer>
+
+    <script>
+        function log(failed, request, response, callback) {
+            if (failed) {
+                console.groupCollapsed(`%cFAILED: ${request.method} ${request.url} (click to open for more information)`, "color:#d56363;");
+            } else {
+                console.groupCollapsed(`%cSuccess: ${request.method} ${request.url} (click to open for more information)`, "color:#129912");
+            }
+
+            if (callback) {
+                callback();
+            }
+
+            console.log(request);
+            console.log(response);
+            console.info("Tips! You can right-click the objects and save them as global variables, if you want to inspect them further");
+            console.groupEnd();
+        }
+
+        function isComparable(response, expected) {
+            if (typeof response != typeof expected) {
+                return false;
+            }
+
+            if (Array.isArray(response) != Array.isArray(expected)) {
+                return false;
+            }
+
+            if (typeof response == "object" && Array.isArray(response)) {
+                if (response.length != expected.length) {
+                    return false;
+                }
+
+                for (let i = 0; i < response.length; ++i) {
+                    if (!isComparable(response[i], expected[i])) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            if (typeof response == "object") {
+                for (const key in response) {
+                    if (!expected.hasOwnProperty(key)) {
+                        return false;
+                    } else if (!isComparable(response[key], expected[key])) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return response == expected;
+        }
+
+        function notify(test, failed, msg) {
+            const button = test.querySelector("button");
+            const message = test.querySelector("footer .message");
+
+            if (arguments.length == 1) {
+                button.textContent = "Running...";
+                test.className = "running";
+                message.textContent = "";
+            } else {
+                test.className = failed ? "error" : "success";
+                button.textContent = "Run test";
+                message.innerHTML = msg;
+            }
+        }
+
+        async function runTest(test) {
+            const options = {
+                method: test.dataset.method,
+                headers: {
+                    "Content-Type": test.dataset.contentType || "application/json"
+                }
+            };
+
+            if (test.dataset.request) {
+                options.body = test.dataset.request;
+            }
+
+            const request = new Request(test.dataset.endpoint, options);
+
+            try {
+                const response = await fetch(request);
+
+                if (test.dataset.status) {
+                    if (test.dataset.status != response.status) {
+                        log(true, request, response, () => {
+                            console.warn("Unexpected status code: got", response.status, "expected", Number(test.dataset.status));
+                        })
+
+                        notify(test, true, `Unexpected status code: got <code>${response.status}</code>, expected <code>${test.dataset.status}</code>`);
+                        return;
+                    }
+                }
+
+                if (test.dataset.response) {
+                    if (response.headers.get("content-type") != "application/json") {
+                        log(true, request, response, () => {
+                            console.warn("Unexpected content type: got", response.headers.get("content-type"), "expected application/json");
+                        })
+
+                        notify(test, true, "Unexpected content type: got", response.headers.get("content-type"), "expected application/json");
+                        return;
+                    }
+
+                    try {
+                        const data = await response.json();
+                        const expectedResponse = JSON.parse(test.dataset.response);
+
+                        if (!isComparable(data, expectedResponse)) {
+                            log(true, request, response, () => {
+                                console.warn("Unexpected response: got", data, "expected", expectedResponse);
+                            })
+
+                            notify(test, true, "Unexpected response body, check the console.");
+                            return;
+                        }
+                    } catch (error) {
+                        log(true, request, response, () => console.error(error))
+                        notify(test, true, "An error occurred, check the console.");
+                        return;
+                    }
+                }
+
+                log(false, request, response);
+                notify(test, false, "The test ran successfully!");
+            } catch (error) {
+                log(true, request, null, () => console.error(error))
+                notify(test, true, "An error occurred, check the console.")
+            }
+        }
+
+        function fillTestWithInformation(i, test) {
+            const notice = test.textContent.trim();
+            test.innerHTML = "";
+
+            const header = document.createElement("header");
+            header.innerHTML = `
+                <h2>TEST ${i + 1}</h2>
+                <p><span>${test.dataset.method}</span> ${test.dataset.endpoint}</p>
+            `;
+
+            const main = document.createElement("main");
+            let mainHTML = `
+                <p>
+                    This test will send a <code>${test.dataset.method}</code> request to <code>${test.dataset.endpoint}</code>
+                    ${test.dataset.contentType ? ", with <code>Content-Type: " + test.dataset.contentType + "</code>." : "."}
+                    The test expects the response status code to be set to <code>${test.dataset.status}</code>.
+                </p>
+            `;
+
+            if (test.dataset.request) {
+                mainHTML += `
+                    <ul>
+                        <li>Request body:</li>
+                        <li><code>${test.dataset.request}</code></li>
+                    </ul>
+                `;
+            }
+
+            if (test.dataset.response) {
+                mainHTML += `
+                    <ul>
+                        <li>Expected response body:</li>
+                        <li><code>${test.dataset.response}</code></li>
+                    </ul>
+                `;
+            }
+
+            main.innerHTML = mainHTML;
+
+            const footer = document.createElement("footer");
+            footer.innerHTML = `
+                ${notice ? `<p class="notice">${notice}</p>` : ""} 
+                <p class="message"></p>
+                <button>Run test</button>
+            `;
+
+            test.append(header);
+            test.append(main);
+            test.append(footer);
+        }
+
+        function setupTests() {
+            const delay = Math.floor(Math.random() * 1500) + 1000;
+            const tests = Array.from(document.querySelectorAll("section"));
+
+            for (let i = 0; i < tests.length; ++i) {
+                const test = tests[i];
+                fillTestWithInformation(i, test);
+
+                const button = test.querySelector("button");
+                button.addEventListener("click", function onRunTest() {
+                    notify(test);
+                    setTimeout(() => runTest(test), delay);
+                });
+            }
+
+            document.querySelector("#run-all").addEventListener("click", function onRunAll() {
+                for (let i = 0; i < tests.length; ++i) {
+                    const test = tests[i];
+                    setTimeout(() => runTest(test), i * 10);
+                }
+            });
+        }
+
+        setupTests();
+    </script>
+</body>
+
+</html>
