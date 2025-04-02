@@ -5,6 +5,7 @@ document.querySelector("button").addEventListener("click", () => {
 });
 document.querySelector("main").style.fontSize = "30px";
 document.querySelector("main").style.fontFamily = "Helvetica";
+document.querySelector("body").style.backgroundColor = `rgb(${Math.floor(Math.random() *255) + 1}, ${Math.floor(Math.random() *255) + 1}, ${Math.floor(Math.random() *255) + 1})`;
 
 let handleDiceThrow = (rec) => {
     let recNum = parseInt(rec);
