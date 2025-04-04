@@ -1,0 +1,11 @@
+#numbers {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+
+  div {
+    padding: 4px;
+    border: 1px solid grey;
+  }
+}
+
