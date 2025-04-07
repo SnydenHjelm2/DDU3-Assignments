@@ -10,15 +10,21 @@ document.querySelector("button").addEventListener("click", () => {
 
 function handlePromises(promArr) {
     document.querySelector("#numbers").innerHTML = "";
+    let numsArr = [];
     for (let i=0; i<promArr.length; i++) {
         let resoProm = promArr[i].then((r) => r.text());
         resoProm.then((r) => {
+            console.log(r);
             let div = document.createElement("div");
             div.textContent = `${i}) ${r}`;
             div.classList.add("nums");
             document.querySelector("#numbers").appendChild(div);
+            numsArr.push(r);
         });
     }
+
+    console.log(numsArr);
+    return numsArr;
 }
 
 // function sortNumbers() {
