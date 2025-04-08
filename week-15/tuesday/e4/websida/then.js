@@ -14,16 +14,18 @@ function handlePromises(promArr) {
     for (let i=0; i<promArr.length; i++) {
         let resoProm = promArr[i].then((r) => r.text());
         resoProm.then((r) => {
-            console.log(r);
-            let div = document.createElement("div");
-            div.textContent = `${i}) ${r}`;
-            div.classList.add("nums");
-            document.querySelector("#numbers").appendChild(div);
             numsArr.push(r);
+            numsArr = numsArr.sort((a, b) => parseInt(a) - parseInt(b));
+            document.querySelector("#numbers").innerHTML = "";
+            for (let num of numsArr) {
+                let div = document.createElement("div");
+                div.textContent = `${numsArr.indexOf(num) + 1}) ${num}`;
+                div.classList.add("nums");
+                document.querySelector("#numbers").appendChild(div);
+            }
         });
     }
 
-    console.log(numsArr);
     return numsArr;
 }
 
