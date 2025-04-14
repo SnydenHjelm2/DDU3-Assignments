@@ -5,14 +5,19 @@ document.querySelector("#button2").addEventListener("click", test);
 
 async function create() {
     let resp = await fetch(req);
-    document.body.innerHTML = resp.status;
+    let msg = "";
+    if (resp.status === 409) {
+        msg = "Name already exists";
+    }
+    document.querySelector("p").textContent = resp.status + " " + msg;
 }
 
 async function test() {
+    document.querySelector("main").innerHTML = "";
     let resp = await fetch("https://maumt.reipino.com/du3/servers/accounts/");
     resp = await resp.json();
     console.log(resp);
     for (let obj of resp) {
-        document.body.innerHTML += `<p>${obj.name}, ${obj.password}, ${obj.dateCreated}, ${obj.loggedIn}</p>`;
+        document.querySelector("main").innerHTML += `<p>${obj.name}, ${obj.password}, ${obj.dateCreated}, ${obj.loggedIn}</p>`;
     }
 }

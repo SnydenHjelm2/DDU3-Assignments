@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div id="create">
+            <h2>Create user</h2>
+            <input id="username" placeholder="Username...">
+            <input id="pwd" placeholder="Password...">
+            <button id="create-b">Create</button>
+            <br>
+            <p></p>
+        </div>
+        <div id="login">
+            <h2>Login</h2>
+            <input id="login-username" placeholder="Username...">
+            <input id="login-pwd" placeholder="Password...">
+            <button id="login-b">Login</button>
+            <br>
+            <p></p>
+        </div>
+    </main>
+    <style>
+        body {
+            font-family: Helvetica;
+        }
+
+        main {
+            display: flex;
+        }
+
+        main div {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+    </style>
+    <script src="script.js"></script>
+</body>
+</html>
