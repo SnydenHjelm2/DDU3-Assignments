@@ -1,5 +1,6 @@
 //e3
 // fetch("http://localhost:8000/").then(a => a.json()).then(b => b).then(c => console.log(c));
+//sträng
 
 //e4
 //A, C, B, E, D - correct guess
